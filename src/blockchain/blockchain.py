@@ -1,6 +1,7 @@
 from datetime import datetime
 import hashlib
 import json
+from .proof_of_work import ProofOfWork
 
 class Block:
     def __init__(self, index, transactions, timestamp, previous_hash):
@@ -8,6 +9,7 @@ class Block:
         self.timestamp = timestamp
         self.transactions = transactions
         self.previous_hash = previous_hash
+        self.nonce = 0
         self.hash = self.calculate_hash()
 
     def calculate_hash(self):
@@ -15,9 +17,9 @@ class Block:
             "index": self.index,
             "timestamp": self.timestamp,
             "transactions": self.transactions,
-            "previous_hash": self.previous_hash
+            "previous_hash": self.previous_hash,
+            "nonce": self.nonce
         }, sort_keys=True).encode()
-        
         return hashlib.sha256(block_string).hexdigest()
 
     def to_dict(self):
@@ -28,7 +30,8 @@ class Block:
             "timestamp": self.timestamp,
             "transactions": txs,
             "previous_hash": self.previous_hash,
-            "hash": self.hash
+            "hash": self.hash,
+            "nonce": self.nonce
         }
 
 class Blockchain:
@@ -51,7 +54,8 @@ class Blockchain:
             datetime.now().timestamp(),
             self.get_latest_block().hash
         )
-        
+        pow = ProofOfWork(block, self.difficulty)
+        block.hash = pow.mine()
         self.chain.append(block)
         self.pending_transactions = []
 
@@ -64,12 +68,10 @@ class Blockchain:
 
     def get_balance(self, address):
         balance = 0
-        
         for block in self.chain:
             for transaction in block.transactions:
                 if transaction["from"] == address:
                     balance -= transaction["amount"]
                 if transaction["to"] == address:
                     balance += transaction["amount"]
-                    
         return balance 
