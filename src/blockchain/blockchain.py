@@ -20,6 +20,17 @@ class Block:
         
         return hashlib.sha256(block_string).hexdigest()
 
+    def to_dict(self):
+        # Ensure transactions are serializable
+        txs = [t.to_dict() if hasattr(t, 'to_dict') else t for t in self.transactions]
+        return {
+            "index": self.index,
+            "timestamp": self.timestamp,
+            "transactions": txs,
+            "previous_hash": self.previous_hash,
+            "hash": self.hash
+        }
+
 class Blockchain:
     def __init__(self):
         self.chain = [self.create_genesis_block()]
