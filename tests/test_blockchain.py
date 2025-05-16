@@ -21,8 +21,7 @@ def test_mine_block():
     blockchain.add_transaction("Alice", "Bob", 10)
     blockchain.mine_pending_transactions("miner1")
     assert len(blockchain.chain) == 2
-    assert len(blockchain.pending_transactions) == 1
-    assert blockchain.pending_transactions[0]["to"] == "miner1"
+    assert len(blockchain.pending_transactions) == 0
 
 def test_get_balance():
     blockchain = Blockchain()

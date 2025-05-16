@@ -1,0 +1,3 @@
+"""
+Tiny Blockchain package.
+""" 

@@ -84,7 +84,7 @@ tiny-blockchain/
 
 ## Contributing
 
-Feel free to submit issues and enhancement requests!
+Show support by ⭐ project 
 
 ## Credits
 

@@ -36,15 +36,13 @@ class Blockchain:
     def mine_pending_transactions(self, miner_address):
         block = Block(
             len(self.chain),
-            self.pending_transactions,
+            self.pending_transactions + [{"from": "network", "to": miner_address, "amount": self.mining_reward}],
             datetime.now().timestamp(),
             self.get_latest_block().hash
         )
         
         self.chain.append(block)
-        self.pending_transactions = [
-            {"from": "network", "to": miner_address, "amount": self.mining_reward}
-        ]
+        self.pending_transactions = []
 
     def add_transaction(self, sender, recipient, amount):
         self.pending_transactions.append({
