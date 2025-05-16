@@ -1,5 +1,5 @@
 import pytest
-from src.node.server import app
+from node.server import app
 import json
 
 @pytest.fixture

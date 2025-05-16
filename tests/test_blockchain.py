@@ -1,6 +1,6 @@
 import pytest
-from src.blockchain import Blockchain, Block
-from src.proof_of_work import ProofOfWork
+from src.blockchain.blockchain import Blockchain, Block
+from src.blockchain.proof_of_work import ProofOfWork
 
 def test_create_blockchain():
     blockchain = Blockchain()

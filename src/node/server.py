@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
-from src.blockchain.transaction import Transaction
-from src.blockchain.blockchain import Blockchain
+from blockchain.transaction import Transaction
+from blockchain.blockchain import Blockchain
 import json
 
 app = Flask(__name__)
